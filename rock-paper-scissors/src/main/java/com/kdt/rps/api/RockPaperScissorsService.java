@@ -21,4 +21,21 @@ public class RockPaperScissorsService {
         else if(hand.equals(SCISSORS)) return PAPER;
         else return ROCK;
     }
+
+    public String judge(String me, String other){
+        //무승부
+        if(me.equals(other)) return "DRAW";
+
+        //그 외 승패
+        if(me.equals(ROCK)){
+            if(other.equals(SCISSORS)) return "WIN";
+        }
+        else if(me.equals(PAPER)){
+            if(other.equals(ROCK)) return "WIN";
+        }
+        else if(me.equals(SCISSORS)){
+            if(other.equals(PAPER)) return "WIN";
+        }
+        return "LOSE";
+    }
 }

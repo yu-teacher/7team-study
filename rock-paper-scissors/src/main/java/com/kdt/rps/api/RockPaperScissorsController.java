@@ -13,9 +13,14 @@ public class RockPaperScissorsController implements RockPaperScissorsApi {
         return rockPaperScissorsService.getAgaintHand(hand);
     }
 
+    //2단계 : 판정(무승부 존재)
     @Override
     public String judge(String me, String other) {
-        throw new UnsupportedOperationException("2단계");
+        if(!rockPaperScissorsService.isRightShape(me)
+                || !rockPaperScissorsService.isRightShape(other)){
+            throw new IllegalArgumentException();
+        }
+        return rockPaperScissorsService.judge(me, other);
     }
 
     @Override
@@ -47,4 +52,12 @@ public class RockPaperScissorsController implements RockPaperScissorsApi {
     public String status() {
         throw new UnsupportedOperationException("4단계");
     }
+
+    public boolean isRightShape(String hand){
+        if(!rockPaperScissorsService.isRightShape(hand)){
+            throw new IllegalArgumentException();
+        }
+        return true;
+    }
+
 }
