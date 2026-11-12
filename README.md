@@ -8,6 +8,7 @@
 |---|---|---|
 | 신호등 | [traffic-light](traffic-light) | enum, 상태 전이, 시간 흐름 처리 |
 | 숫자 야구 | [number-baseball](number-baseball) | 값 객체, 검증 위치, 무작위 값 테스트 |
+| 로또 | [lotto](lotto) | 일급 컬렉션, 등수 enum, 금액 계산과 반올림 |
 
 ## 구조
 
