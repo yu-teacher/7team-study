@@ -212,4 +212,4 @@ IntelliJ에서 `BoardConsole`을 열고 `main` 옆의 실행 버튼을 누르거
 2. "작성자만 수정할 수 있다"는 확인을 글 객체가 하나요, 바깥(게시판, 서비스)이 하나요?
 3. 댓글은 글 안에 들어 있나요, 따로 저장하나요? 댓글 번호로 댓글을 어떻게 찾나요?
 4. 페이지 나누기와 검색은 어느 객체의 일인가요? 저장 방식이 DB로 바뀐다면 어디까지 고쳐야 하나요?
-5. Spring의 Controller, Service, Repository로 나눈다면 지금 내 클래스는 각각 어디에 해당하나요?
+5. `BoardController`가 Spring의 Controller라면, 내 클래스 중 Service와 Repository에 해당하는 것은 무엇인가요? 한 클래스가 둘 다 하고 있지는 않나요?

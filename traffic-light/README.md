@@ -90,39 +90,18 @@
 
 ## 채점하기
 
-### 왜 컨트롤러가 필요한가요?
+채점 방식은 다른 문제와 같습니다. 처음이라면 [가위바위보 README의 채점하기](../rock-paper-scissors/README.md#채점하기)를 먼저 읽어 보세요.
 
-클래스 이름과 메서드 이름은 사람마다 다릅니다. 누구는 `TrafficLight.next()`, 누구는 `Signal.change()`로 만들 수 있습니다.
-채점 테스트가 특정 이름을 직접 부르면 모두가 그 이름에 맞춰야 하므로 설계가 똑같아집니다.
-
-그래서 Spring의 컨트롤러 테스트처럼 **바깥 약속만 고정**합니다.
-채점 테스트는 **정해진 인터페이스(`TrafficLightApi`)만** 부르고, 각자 **`TrafficLightController`에서 그 요청을 내 코드로 넘겨 줍니다.**
-Spring 컨트롤러가 HTTP 요청을 받아 서비스로 넘기고, 결과를 응답 형식으로 바꿔 주는 것과 같은 역할입니다.
+채점 테스트는 **정해진 인터페이스(`TrafficLightApi`)만** 부르고,
+각자 **`TrafficLightController`(컨트롤러)에서 그 요청을 내 코드로 넘겨 줍니다.**
+두 파일은 `src/main/java/com/kdt/trafficlight/api/`에, 채점 테스트는 `src/test/java/com/kdt/trafficlight/grading/`에 있습니다.
 
 ```
 채점 테스트 ──▶ TrafficLightApi ─────▶ TrafficLightController ──▶ 내 신호등 코드
  (고정)         (고정, 인터페이스)     (내가 채움)                (설계 자유)
 ```
 
-| Spring | 이 스터디 |
-|---|---|
-| HTTP 요청과 응답 형식 (고정) | `TrafficLightApi` 인터페이스 (고정) |
-| 컨트롤러: 요청을 받아 서비스로 넘김 | `TrafficLightController`: 문자열과 숫자를 받아 내 객체로 넘김 |
-| 서비스, 도메인 (설계 자유) | 내 신호등 코드 (설계 자유) |
-| 컨트롤러 테스트 (MockMvc 등) | `TrafficLightGradingTest` |
-
-### 파일 구성
-
-| 파일 | 역할 | 수정 |
-|---|---|---|
-| `src/main/java/com/kdt/trafficlight/api/TrafficLightApi.java` | 채점 테스트가 부르는 메서드 목록 | 하지 않음 |
-| `src/main/java/com/kdt/trafficlight/api/TrafficLightController.java` | 요청을 내 코드로 넘기는 컨트롤러 | **여기만 채움** |
-| `src/test/java/com/kdt/trafficlight/grading/TrafficLightGradingTest.java` | 채점 테스트 | 하지 않음 |
-| `src/main/java/com/kdt/trafficlight/console/TrafficLightConsole.java` | 직접 실행해 보는 콘솔 (채점 안 함) | 하지 않아도 됨 |
-
-내 신호등 코드는 `com.kdt.trafficlight` 아래에 자유롭게 만듭니다.
-
-### 메서드별로 돌려줄 값
+### 메서드별로 할 일
 
 | 메서드 | 할 일 | 돌려줄 값 |
 |---|---|---|
@@ -134,41 +113,13 @@ Spring 컨트롤러가 HTTP 요청을 받아 서비스로 넘기고, 결과를 �
 | `pressPedestrianButton()` | 보행자 버튼 누르기 | 없음 |
 | `breakDown()`, `repair()` | 고장, 복구 | 없음 |
 
-### 채우는 예시
-
-아래는 **신호등 문제와 상관없는 설계**를 예로 든 것입니다. 이름이 전혀 달라도 연결만 하면 된다는 것을 보여 주려는 예시이니, 이 구조를 따라 할 필요는 없습니다.
-
-```java
-public class TrafficLightController implements TrafficLightApi {
-    private final 교차로 crossroad = new 교차로();     // 1. 내 객체를 필드로 하나 만든다
-
-    @Override
-    public String signal() {
-        return switch (crossroad.현재불()) {          // 2. 내 값을 정해진 문자열로 바꿔 준다
-            case 빨간불 -> "RED";
-            case 초록불 -> "GREEN";
-            case 노란불 -> "YELLOW";
-            case 점멸 -> "FLASHING_YELLOW";
-        };
-    }
-
-    @Override
-    public void elapse(int seconds) {
-        crossroad.시간경과(seconds);                  // 3. 동작은 내 메서드를 그대로 부른다
-    }
-
-    // 나머지 메서드도 같은 방식
-}
-```
-
-- 내 enum 상수 이름이 `RED`, `GREEN`처럼 영문으로 같다면 `switch` 없이 `name()`만 돌려주면 됩니다.
-- 채점 테스트는 테스트마다 `TrafficLightController`를 새로 만들기 때문에, 필드에서 객체를 만들면 매번 새 신호등으로 시작합니다.
-- **컨트롤러에는 로직을 넣지 않습니다.** 신호 계산을 여기서 하면 채점은 통과해도 내 신호등은 구현되지 않은 것입니다. 호출을 넘기고 값만 바꿔 주세요. Spring에서 컨트롤러에 비즈니스 로직을 넣지 않는 것과 같습니다.
-- 아직 구현하지 않은 단계의 메서드는 `throw`를 그대로 두면 됩니다. 그 단계만 실패로 나옵니다.
+- 채점 테스트는 테스트마다 `TrafficLightController`를 새로 만들기 때문에 매번 처음 상태(빨강, 30초)에서 시작합니다.
+- **컨트롤러에는 로직을 넣지 않습니다.** 신호 계산을 여기서 하면 채점은 통과해도 내 신호등은 구현되지 않은 것입니다. Spring에서 컨트롤러에 비즈니스 로직을 넣지 않는 것과 같습니다.
+- 아직 구현하지 않은 단계의 메서드는 `throw`를 그대로 두면 그 단계만 실패로 나옵니다.
 
 ### 실행
 
-IntelliJ에서 `TrafficLightGradingTest`를 열고 클래스 옆의 실행 버튼을 누르면 단계별로 결과가 보입니다.
+IntelliJ에서 `TrafficLightGradingTest`를 실행하거나:
 
 ```bash
 ./gradlew :traffic-light:test --tests '*GradingTest'
@@ -191,7 +142,7 @@ IntelliJ에서 `TrafficLightConsole`을 열고 `main` 옆의 실행 버튼을 �
 ```
 명령을 입력하세요:
 wait 40
-차량: 🟢 초록 (남은 시간 5초) | 보행자: 멈추세요
+차량: 🟢 초록 (남은 시간 15초) | 보행자: 멈추세요
 ```
 
 ## 모여서 이야기할 거리

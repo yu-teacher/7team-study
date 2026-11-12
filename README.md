@@ -23,8 +23,15 @@
 ├── build.gradle        공통 설정 (Java 21, JUnit 5, AssertJ)
 ├── settings.gradle     src 폴더가 있는 하위 폴더를 자동으로 포함
 ├── rock-paper-scissors/
-│   ├── README.md       요구사항
+│   ├── README.md                         요구사항
 │   └── src/
+│       ├── main/java/com/kdt/rps/
+│       │   ├── api/RockPaperScissorsApi.java          채점과 콘솔이 부르는 약속 (고정)
+│       │   ├── api/RockPaperScissorsController.java   내 코드로 넘기는 컨트롤러 (여기만 채움)
+│       │   ├── console/RockPaperScissorsConsole.java  직접 실행해 보는 콘솔 (채점 안 함)
+│       │   └── (내 도메인 코드)                       설계 자유
+│       └── test/java/com/kdt/rps/grading/
+│           └── RockPaperScissorsGradingTest.java      채점 테스트 (고정)
 └── ...
 ```
 
@@ -61,6 +68,8 @@ IntelliJ에서는 각 문제의 `console/XxxConsole`을 열고 `main` 옆의 실
 
 ## 새 문제 추가
 
-1. 루트에 영문 폴더를 만들고 `README.md`와 `src/main/java`, `src/test/java`를 둡니다.
-2. 위 문제 목록 표에 한 줄 추가합니다.
-3. 정답은 `폴더명-answer`로 만들면 `.gitignore`에 걸려 올라가지 않습니다.
+1. 루트에 영문 폴더를 만들고 `README.md`를 둡니다. `src`가 있으면 `settings.gradle`이 자동으로 포함합니다.
+2. 위 구조처럼 `api/XxxApi`(인터페이스), `api/XxxController`(모든 메서드가 `UnsupportedOperationException("N단계")`를 던지는 빈 틀), `console/XxxConsole`, `grading/XxxGradingTest`를 둡니다.
+3. 채점 테스트가 검사하는 규칙은 README에 빠짐없이 적고, 예시 값은 테스트 값과 맞춥니다.
+4. 위 문제 목록 표에 한 줄 추가합니다.
+5. 정답은 `폴더명-answer`로 만들면 `.gitignore`에 걸려 올라가지 않습니다.
