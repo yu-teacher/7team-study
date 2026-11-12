@@ -1,6 +1,6 @@
-package com.kdt.trafficlight.grading;
+package com.kdt.trafficlight.api;
 
-public class MyTrafficLightDriver implements TrafficLightDriver {
+public class TrafficLightController implements TrafficLightApi {
 
     @Override
     public String signal() {

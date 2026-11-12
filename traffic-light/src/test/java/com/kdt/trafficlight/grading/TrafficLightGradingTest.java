@@ -1,5 +1,7 @@
 package com.kdt.trafficlight.grading;
 
+import com.kdt.trafficlight.api.TrafficLightApi;
+import com.kdt.trafficlight.api.TrafficLightController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.ClassOrderer;
 import org.junit.jupiter.api.DisplayName;
@@ -24,11 +26,11 @@ class TrafficLightGradingTest {
     private static final String WALK = "WALK";
     private static final String STOP = "STOP";
 
-    private TrafficLightDriver light;
+    private TrafficLightApi light;
 
     @BeforeEach
     void setUp() {
-        light = new MyTrafficLightDriver();
+        light = new TrafficLightController();
     }
 
     private void nextTimes(int times) {

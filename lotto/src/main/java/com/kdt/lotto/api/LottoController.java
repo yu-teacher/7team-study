@@ -1,8 +1,8 @@
-package com.kdt.lotto.grading;
+package com.kdt.lotto.api;
 
 import java.util.List;
 
-public class MyLottoDriver implements LottoDriver {
+public class LottoController implements LottoApi {
 
     @Override
     public List<Integer> ticket(List<Integer> numbers) {

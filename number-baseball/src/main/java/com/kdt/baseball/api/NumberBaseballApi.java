@@ -1,6 +1,6 @@
-package com.kdt.baseball.grading;
+package com.kdt.baseball.api;
 
-public interface NumberBaseballDriver {
+public interface NumberBaseballApi {
 
     void start(String answer);
 

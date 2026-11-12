@@ -1,5 +1,7 @@
 package com.kdt.baseball.grading;
 
+import com.kdt.baseball.api.NumberBaseballApi;
+import com.kdt.baseball.api.NumberBaseballController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.ClassOrderer;
 import org.junit.jupiter.api.DisplayName;
@@ -26,11 +28,11 @@ class NumberBaseballGradingTest {
     private static final String LOSE = "LOSE";
     private static final int MAX_ATTEMPTS = 10;
 
-    private NumberBaseballDriver game;
+    private NumberBaseballApi game;
 
     @BeforeEach
     void setUp() {
-        game = new MyNumberBaseballDriver();
+        game = new NumberBaseballController();
     }
 
     private void guessWrong(int times) {

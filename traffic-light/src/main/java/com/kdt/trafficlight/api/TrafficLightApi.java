@@ -1,6 +1,6 @@
-package com.kdt.trafficlight.grading;
+package com.kdt.trafficlight.api;
 
-public interface TrafficLightDriver {
+public interface TrafficLightApi {
 
     String signal();
 

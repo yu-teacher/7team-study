@@ -1,6 +1,6 @@
-package com.kdt.baseball.grading;
+package com.kdt.baseball.api;
 
-public class MyNumberBaseballDriver implements NumberBaseballDriver {
+public class NumberBaseballController implements NumberBaseballApi {
 
     @Override
     public void start(String answer) {

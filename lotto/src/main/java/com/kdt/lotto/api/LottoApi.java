@@ -1,8 +1,8 @@
-package com.kdt.lotto.grading;
+package com.kdt.lotto.api;
 
 import java.util.List;
 
-public interface LottoDriver {
+public interface LottoApi {
 
     List<Integer> ticket(List<Integer> numbers);
 

@@ -1,5 +1,7 @@
 package com.kdt.lotto.grading;
 
+import com.kdt.lotto.api.LottoApi;
+import com.kdt.lotto.api.LottoController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.ClassOrderer;
 import org.junit.jupiter.api.DisplayName;
@@ -26,11 +28,11 @@ class LottoGradingTest {
     private static final List<Integer> WINNING = List.of(1, 2, 3, 4, 5, 6);
     private static final int BONUS = 7;
 
-    private LottoDriver lotto;
+    private LottoApi lotto;
 
     @BeforeEach
     void setUp() {
-        lotto = new MyLottoDriver();
+        lotto = new LottoController();
     }
 
     private static List<Integer> nums(String csv) {

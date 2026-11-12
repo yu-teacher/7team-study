@@ -8,7 +8,7 @@
 ## 진행 규칙
 
 - 패키지: `com.kdt.trafficlight`
-- 1단계부터 차례로 구현하고, 요구사항마다 내 테스트를 하나 이상 작성합니다.
+- 1단계부터 차례로 구현합니다. 따로 테스트를 작성할 필요는 없고, **채점 테스트로만 확인**합니다.
 - 클래스 이름, 메서드 이름, 구조는 자유입니다. 설계 차이를 비교하는 것이 목적입니다.
 - JUnit 사용법은 `SampleTest`를 참고하고, 구현을 시작하면 지워도 됩니다.
 
@@ -91,26 +91,36 @@
 
 ## 채점하기
 
-### 왜 연결 클래스가 필요한가요?
+### 왜 컨트롤러가 필요한가요?
 
 클래스 이름과 메서드 이름은 사람마다 다릅니다. 누구는 `TrafficLight.next()`, 누구는 `Signal.change()`로 만들 수 있습니다.
 채점 테스트가 특정 이름을 직접 부르면 모두가 그 이름에 맞춰야 하므로 설계가 똑같아집니다.
 
-그래서 채점 테스트는 **정해진 인터페이스(`TrafficLightDriver`)만** 부르고,
-각자 **`MyTrafficLightDriver` 한 파일에서 그 호출을 내 코드로 넘겨 줍니다.** 전기 콘센트의 변환 어댑터와 같은 역할입니다.
+그래서 Spring의 컨트롤러 테스트처럼 **바깥 약속만 고정**합니다.
+채점 테스트는 **정해진 인터페이스(`TrafficLightApi`)만** 부르고, 각자 **`TrafficLightController`에서 그 요청을 내 코드로 넘겨 줍니다.**
+Spring 컨트롤러가 HTTP 요청을 받아 서비스로 넘기고, 결과를 응답 형식으로 바꿔 주는 것과 같은 역할입니다.
 
 ```
-채점 테스트 ──▶ TrafficLightDriver ──▶ MyTrafficLightDriver ──▶ 내 신호등 코드
- (고정)          (고정, 인터페이스)       (내가 채움)              (설계 자유)
+채점 테스트 ──▶ TrafficLightApi ─────▶ TrafficLightController ──▶ 내 신호등 코드
+ (고정)         (고정, 인터페이스)     (내가 채움)                (설계 자유)
 ```
+
+| Spring | 이 스터디 |
+|---|---|
+| HTTP 요청과 응답 형식 (고정) | `TrafficLightApi` 인터페이스 (고정) |
+| 컨트롤러: 요청을 받아 서비스로 넘김 | `TrafficLightController`: 문자열과 숫자를 받아 내 객체로 넘김 |
+| 서비스, 도메인 (설계 자유) | 내 신호등 코드 (설계 자유) |
+| 컨트롤러 테스트 (MockMvc 등) | `TrafficLightGradingTest` |
 
 ### 파일 구성
 
 | 파일 | 역할 | 수정 |
 |---|---|---|
-| `grading/TrafficLightGradingTest.java` | 채점 테스트 | 하지 않음 |
-| `grading/TrafficLightDriver.java` | 채점 테스트가 부르는 메서드 목록 | 하지 않음 |
-| `grading/MyTrafficLightDriver.java` | 내 코드로 연결하는 곳 | **여기만 채움** |
+| `src/main/java/com/kdt/trafficlight/api/TrafficLightApi.java` | 채점 테스트가 부르는 메서드 목록 | 하지 않음 |
+| `src/main/java/com/kdt/trafficlight/api/TrafficLightController.java` | 요청을 내 코드로 넘기는 컨트롤러 | **여기만 채움** |
+| `src/test/java/com/kdt/trafficlight/grading/TrafficLightGradingTest.java` | 채점 테스트 | 하지 않음 |
+
+내 신호등 코드는 `com.kdt.trafficlight` 아래에 자유롭게 만듭니다.
 
 ### 메서드별로 돌려줄 값
 
@@ -129,7 +139,7 @@
 아래는 **신호등 문제와 상관없는 설계**를 예로 든 것입니다. 이름이 전혀 달라도 연결만 하면 된다는 것을 보여 주려는 예시이니, 이 구조를 따라 할 필요는 없습니다.
 
 ```java
-public class MyTrafficLightDriver implements TrafficLightDriver {
+public class TrafficLightController implements TrafficLightApi {
     private final 교차로 crossroad = new 교차로();     // 1. 내 객체를 필드로 하나 만든다
 
     @Override
@@ -152,8 +162,8 @@ public class MyTrafficLightDriver implements TrafficLightDriver {
 ```
 
 - 내 enum 상수 이름이 `RED`, `GREEN`처럼 영문으로 같다면 `switch` 없이 `name()`만 돌려주면 됩니다.
-- 채점 테스트는 테스트마다 `MyTrafficLightDriver`를 새로 만들기 때문에, 필드에서 객체를 만들면 매번 새 신호등으로 시작합니다.
-- **연결 클래스에는 로직을 넣지 않습니다.** 신호 계산을 여기서 하면 채점은 통과해도 내 신호등은 구현되지 않은 것입니다. 호출을 넘기고 값만 바꿔 주세요.
+- 채점 테스트는 테스트마다 `TrafficLightController`를 새로 만들기 때문에, 필드에서 객체를 만들면 매번 새 신호등으로 시작합니다.
+- **컨트롤러에는 로직을 넣지 않습니다.** 신호 계산을 여기서 하면 채점은 통과해도 내 신호등은 구현되지 않은 것입니다. 호출을 넘기고 값만 바꿔 주세요. Spring에서 컨트롤러에 비즈니스 로직을 넣지 않는 것과 같습니다.
 - 아직 구현하지 않은 단계의 메서드는 `throw`를 그대로 두면 됩니다. 그 단계만 실패로 나옵니다.
 
 ### 실행
@@ -163,8 +173,6 @@ IntelliJ에서 `TrafficLightGradingTest`를 열고 클래스 옆의 실행 버�
 ```bash
 ./gradlew :traffic-light:test --tests '*GradingTest'
 ```
-
-채점 테스트와 별개로, 내 설계에 맞는 테스트도 직접 작성해 보세요.
 
 ## 모여서 이야기할 거리
 
