@@ -64,7 +64,16 @@
 ./gradlew -q --console=plain :rock-paper-scissors:console
 ```
 
-IntelliJ에서는 각 문제의 `console/XxxConsole`을 열고 `main` 옆의 실행 버튼을 누르면 됩니다.
+IntelliJ에서는 이렇게 실행합니다.
+
+1. 각 문제의 `src/main/java/com/kdt/<패키지>/console/XxxConsole.java`를 엽니다.
+2. `main` 메서드 왼쪽의 초록색 ▶ 버튼을 누르고 **Run**을 고릅니다.
+3. 아래쪽 **Run 창을 클릭한 뒤** 입력하고 Enter를 누릅니다.
+
+Run 창에서 입력이 되지 않으면 **Settings → Build, Execution, Deployment → Build Tools → Gradle**에서
+**Build and run using**과 **Run tests using**을 **IntelliJ IDEA**로 바꾸고 다시 실행해 보세요.
+
+빈 틀 그대로 실행하면 "아직 구현하지 않은 기능입니다 (N단계)"만 나옵니다. 도메인 코드와 컨트롤러를 채운 뒤 실행하세요.
 
 ## 새 문제 추가
 
