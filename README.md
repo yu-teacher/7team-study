@@ -7,6 +7,7 @@
 | 문제 | 폴더 | 주요 연습 포인트 |
 |---|---|---|
 | 신호등 | [traffic-light](traffic-light) | enum, 상태 전이, 시간 흐름 처리 |
+| 숫자 야구 | [number-baseball](number-baseball) | 값 객체, 검증 위치, 무작위 값 테스트 |
 
 ## 구조
 
