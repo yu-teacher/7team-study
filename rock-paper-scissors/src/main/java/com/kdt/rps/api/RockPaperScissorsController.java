@@ -34,6 +34,9 @@ public class RockPaperScissorsController implements RockPaperScissorsApi {
     //경기 한 판 하기
     @Override
     public String play(String me, String other) {
+        if(rockPaperScissorsService.isFinished()){
+            throw new IllegalStateException();
+        }
         String result = judge(me, other);
         rockPaperScissorsService.update(result);
         return result;
@@ -55,9 +58,10 @@ public class RockPaperScissorsController implements RockPaperScissorsApi {
         return rockPaperScissorsService.getDraws();
     }
 
+    ///4단계 : 3선승 경기
     @Override
     public String status() {
-        return"";
+        return rockPaperScissorsService.status();
     }
 
 }

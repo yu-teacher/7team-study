@@ -9,6 +9,7 @@ public class RockPaperScissorsService {
     private int wins;
     private int losses;
     private int draws;
+    private String status;
 
     public RockPaperScissorsService rockPaperScissorsService;
 
@@ -43,7 +44,10 @@ public class RockPaperScissorsService {
         return "LOSE";
     }
 
-    public void start() { wins = losses = draws = 0; }
+    public void start() {
+        wins = losses = draws = 0;
+        status = "PLAYING";
+    }
 
     public void update(String result){
         if(result.equals("DRAW")) draws++;
@@ -59,5 +63,16 @@ public class RockPaperScissorsService {
     }
     public int getDraws(){
         return this.draws;
+    }
+
+    public boolean isFinished(){
+        return !status().equals("PLAYING");
+    }
+
+    public String status(){
+        if(wins>=3) status="WIN";
+        else if(losses>=3)status="LOSE";
+        else status="PLAYING";
+        return status;
     }
 }
