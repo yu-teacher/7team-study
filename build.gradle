@@ -21,6 +21,20 @@ subprojects {
         testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     }
 
+    // src/main/java/**/console/*Console.java 가 있으면 ./gradlew :문제:console 로 실행할 수 있습니다.
+    def consoleFile = fileTree('src/main/java').matching { include '**/console/*Console.java' }.files.find()
+    if (consoleFile != null) {
+        def consoleClass = file('src/main/java').toPath().relativize(consoleFile.toPath())
+                                                 .toString().replace(File.separator, '.') - '.java'
+        tasks.register('console', JavaExec) {
+            group = 'application'
+            description = '콘솔로 직접 실행해 봅니다.'
+            classpath = sourceSets.main.runtimeClasspath
+            mainClass = consoleClass
+            standardInput = System.in
+        }
+    }
+
     tasks.named('test') {
         useJUnitPlatform()
         testLogging {

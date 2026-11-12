@@ -45,9 +45,19 @@
 
 ## 실행
 
+채점 테스트:
+
 ```bash
 ./gradlew :rock-paper-scissors:test
 ```
+
+직접 실행해 보기 (문제마다 콘솔이 미리 들어 있고, 채점하지 않습니다):
+
+```bash
+./gradlew -q --console=plain :rock-paper-scissors:console
+```
+
+IntelliJ에서는 각 문제의 `console/XxxConsole`을 열고 `main` 옆의 실행 버튼을 누르면 됩니다.
 
 ## 새 문제 추가
 

@@ -1,7 +1,7 @@
 # 신호등 구현하기
 
 순수 자바(프레임워크 없음)로 신호등을 구현합니다.
-입출력(콘솔, 화면) 없이 **객체와 JUnit 테스트**만으로 요구사항을 검증합니다.
+채점은 **JUnit 테스트**로 하고, 다 만들면 미리 준비된 콘솔로 [직접 실행해 볼 수 있습니다](#직접-실행해-보기).
 
 > 처음이라면 [루트 README](../README.md#진행-방법)에서 브랜치 만드는 법부터 보세요.
 
@@ -119,6 +119,7 @@ Spring 컨트롤러가 HTTP 요청을 받아 서비스로 넘기고, 결과를 �
 | `src/main/java/com/kdt/trafficlight/api/TrafficLightApi.java` | 채점 테스트가 부르는 메서드 목록 | 하지 않음 |
 | `src/main/java/com/kdt/trafficlight/api/TrafficLightController.java` | 요청을 내 코드로 넘기는 컨트롤러 | **여기만 채움** |
 | `src/test/java/com/kdt/trafficlight/grading/TrafficLightGradingTest.java` | 채점 테스트 | 하지 않음 |
+| `src/main/java/com/kdt/trafficlight/console/TrafficLightConsole.java` | 직접 실행해 보는 콘솔 (채점 안 함) | 하지 않아도 됨 |
 
 내 신호등 코드는 `com.kdt.trafficlight` 아래에 자유롭게 만듭니다.
 
@@ -172,6 +173,26 @@ IntelliJ에서 `TrafficLightGradingTest`를 열고 클래스 옆의 실행 버�
 
 ```bash
 ./gradlew :traffic-light:test --tests '*GradingTest'
+```
+
+## 직접 실행해 보기
+
+`src/main/java/com/kdt/trafficlight/console/TrafficLightConsole.java`가 미리 들어 있습니다. 모든 단계를 구현하면 `next`, `wait 10`, `button`, `break`, `repair` 같은 명령으로 신호등을 조작해 볼 수 있습니다.
+
+- 콘솔도 채점 테스트와 똑같이 `TrafficLightApi`(컨트롤러)만 부릅니다. 컨트롤러를 채우면 화면과 채점이 함께 동작합니다.
+- 콘솔은 **채점하지 않고, 수정할 필요도 없습니다.** 화면 문구를 바꾸고 싶다면 바꿔도 됩니다.
+- 아직 구현하지 않은 단계가 있으면 "아직 구현하지 않은 기능입니다"라고 나옵니다.
+
+IntelliJ에서 `TrafficLightConsole`을 열고 `main` 옆의 실행 버튼을 누르거나:
+
+```bash
+./gradlew -q --console=plain :traffic-light:console
+```
+
+```
+명령을 입력하세요:
+wait 40
+차량: 🟢 초록 (남은 시간 5초) | 보행자: 멈추세요
 ```
 
 ## 모여서 이야기할 거리

@@ -1,7 +1,7 @@
 # 가위바위보 구현하기
 
 순수 자바(프레임워크 없음)로 가위바위보 경기를 구현합니다.
-입출력(콘솔, 화면) 없이 **객체와 JUnit 테스트**만으로 요구사항을 검증합니다.
+채점은 **JUnit 테스트**로 하고, 다 만들면 미리 준비된 콘솔로 [직접 실행해 볼 수 있습니다](#직접-실행해-보기).
 
 스터디의 **첫 문제**입니다. "규칙을 객체 안에 넣는다"는 감각을 가장 작은 문제로 연습합니다.
 
@@ -122,6 +122,7 @@ Spring 컨트롤러가 HTTP 요청을 받아 서비스로 넘기고, 결과를 �
 | `src/main/java/com/kdt/rps/api/RockPaperScissorsApi.java` | 채점 테스트가 부르는 메서드 목록 | 하지 않음 |
 | `src/main/java/com/kdt/rps/api/RockPaperScissorsController.java` | 요청을 내 코드로 넘기는 컨트롤러 | **여기만 채움** |
 | `src/test/java/com/kdt/rps/grading/RockPaperScissorsGradingTest.java` | 채점 테스트 | 하지 않음 |
+| `src/main/java/com/kdt/rps/console/RockPaperScissorsConsole.java` | 직접 실행해 보는 콘솔 (채점 안 함) | 하지 않아도 됨 |
 
 내 가위바위보 코드는 `com.kdt.rps` 아래에 자유롭게 만듭니다.
 
@@ -174,6 +175,27 @@ IntelliJ에서 `RockPaperScissorsGradingTest`를 열고 클래스 옆의 실행 
 
 ```bash
 ./gradlew :rock-paper-scissors:test --tests '*GradingTest'
+```
+
+## 직접 실행해 보기
+
+`src/main/java/com/kdt/rps/console/RockPaperScissorsConsole.java`가 미리 들어 있습니다. 모든 단계를 구현하면 컴퓨터와 3선승 경기를 해 볼 수 있습니다. 컴퓨터의 손은 콘솔이 무작위로 정합니다.
+
+- 콘솔도 채점 테스트와 똑같이 `RockPaperScissorsApi`(컨트롤러)만 부릅니다. 컨트롤러를 채우면 화면과 채점이 함께 동작합니다.
+- 콘솔은 **채점하지 않고, 수정할 필요도 없습니다.** 화면 문구를 바꾸고 싶다면 바꿔도 됩니다.
+- 아직 구현하지 않은 단계가 있으면 "아직 구현하지 않은 기능입니다"라고 나옵니다.
+
+IntelliJ에서 `RockPaperScissorsConsole`을 열고 `main` 옆의 실행 버튼을 누르거나:
+
+```bash
+./gradlew -q --console=plain :rock-paper-scissors:console
+```
+
+```
+가위, 바위, 보 중 하나를 내세요:
+바위
+나: 바위, 컴퓨터: 가위 → 이겼습니다!
+전적: 1승 0패 0무
 ```
 
 ## 모여서 이야기할 거리

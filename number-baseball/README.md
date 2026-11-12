@@ -1,7 +1,7 @@
 # 숫자 야구 구현하기
 
 순수 자바(프레임워크 없음)로 숫자 야구 게임을 구현합니다.
-입출력(콘솔, 화면) 없이 **객체와 JUnit 테스트**만으로 요구사항을 검증합니다.
+채점은 **JUnit 테스트**로 하고, 다 만들면 미리 준비된 콘솔로 [직접 실행해 볼 수 있습니다](#직접-실행해-보기).
 
 > 처음이라면 [루트 README](../README.md#진행-방법)에서 브랜치 만드는 법부터 보세요.
 
@@ -110,6 +110,26 @@ IntelliJ에서 `NumberBaseballGradingTest`를 실행하거나:
 
 ```bash
 ./gradlew :number-baseball:test --tests '*GradingTest'
+```
+
+## 직접 실행해 보기
+
+`src/main/java/com/kdt/baseball/console/NumberBaseballConsole.java`가 미리 들어 있습니다. 모든 단계를 구현하면 무작위 정답을 10번 안에 맞혀 볼 수 있습니다.
+
+- 콘솔도 채점 테스트와 똑같이 `NumberBaseballApi`(컨트롤러)만 부릅니다. 컨트롤러를 채우면 화면과 채점이 함께 동작합니다.
+- 콘솔은 **채점하지 않고, 수정할 필요도 없습니다.** 화면 문구를 바꾸고 싶다면 바꿔도 됩니다.
+- 아직 구현하지 않은 단계가 있으면 "아직 구현하지 않은 기능입니다"라고 나옵니다.
+
+IntelliJ에서 `NumberBaseballConsole`을 열고 `main` 옆의 실행 버튼을 누르거나:
+
+```bash
+./gradlew -q --console=plain :number-baseball:console
+```
+
+```
+세 자리 숫자를 입력하세요:
+456
+1볼 (2번째)
 ```
 
 ## 모여서 이야기할 거리
