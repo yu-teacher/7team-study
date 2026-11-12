@@ -2,9 +2,15 @@ package com.kdt.rps.api;
 
 public class RockPaperScissorsController implements RockPaperScissorsApi {
 
+    private final RockPaperScissorsService rockPaperScissorsService = new RockPaperScissorsService() ;
+
+    //1단계 : 손 모양 판정 및 예외 처리
     @Override
     public String winsAgainst(String hand) {
-        throw new UnsupportedOperationException("1단계");
+        if(!rockPaperScissorsService.isRightShape(hand)){
+            throw new IllegalArgumentException();
+        }
+        return rockPaperScissorsService.getAgaintHand(hand);
     }
 
     @Override
