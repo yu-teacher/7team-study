@@ -6,6 +6,10 @@ public class RockPaperScissorsService {
     private static final String PAPER = "PAPER";
     private static final String SCISSORS = "SCISSORS";
 
+    private int wins;
+    private int losses;
+    private int draws;
+
     public RockPaperScissorsService rockPaperScissorsService;
 
     public boolean isRightShape(String hand){
@@ -37,5 +41,23 @@ public class RockPaperScissorsService {
             if(other.equals(PAPER)) return "WIN";
         }
         return "LOSE";
+    }
+
+    public void start() { wins = losses = draws = 0; }
+
+    public void update(String result){
+        if(result.equals("DRAW")) draws++;
+        else if (result.equals("WIN")) wins++;
+        else losses++;
+    }
+
+    public int getWins(){
+        return this.wins;
+    }
+    public int getLoses(){
+        return this.losses;
+    }
+    public int getDraws(){
+        return this.draws;
     }
 }
