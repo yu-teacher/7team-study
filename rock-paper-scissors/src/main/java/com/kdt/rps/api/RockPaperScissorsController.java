@@ -2,7 +2,7 @@ package com.kdt.rps.api;
 
 public class RockPaperScissorsController implements RockPaperScissorsApi {
 
-    private final Match match = new Match();
+    Match match = new Match();
 
     //1단계 : 손 모양 판정 및 예외 처리
     @Override
@@ -20,39 +20,29 @@ public class RockPaperScissorsController implements RockPaperScissorsApi {
     //새 경기 시작
     @Override
     public void start() {
-        throw new IllegalArgumentException();
-//        rockPaperScissorsService.start();
+        match = new Match();
     }
 
     //경기 한 판 하기
     @Override
     public String play(String me, String other) {
-        throw new IllegalArgumentException();
-//        if(rockPaperScissorsService.isFinished()){
-//            throw new IllegalStateException();
-//        }
-//        String result = judge(me, other);
-//        rockPaperScissorsService.update(result);
-//        return result;
+        return match.play(me, other);
     }
 
     //승패, 무승부 횟수 출력
     @Override
     public int wins() {
-        throw new IllegalArgumentException();
-//        return rockPaperScissorsService.getWins();
+        return match.getWins();
     }
 
     @Override
     public int losses() {
-        throw new IllegalArgumentException();
-//        return rockPaperScissorsService.getLoses();
+        return match.getLosses();
     }
 
     @Override
     public int draws() {
-        throw new IllegalArgumentException();
-//        return rockPaperScissorsService.getDraws();
+        return match.getDraws();
     }
 
     ///4단계 : 3선승 경기
