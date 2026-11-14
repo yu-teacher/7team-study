@@ -7,7 +7,7 @@ public class Match {
     ///상태
     String me;
     String other;
-    String state;
+    String state = State.PLAYING.name();
     int wins;
     int losses ;
     int draws;
@@ -32,7 +32,7 @@ public class Match {
         Hand m = Hand.valueOf(me);
         Hand o = Hand.valueOf(other);
 
-        if(m==o) return "DRAW";
+        if(m==o) return WinOrLoss.DRAW.name();
 
         return switch (m){
             case ROCK -> o==Hand.SCISSORS ? WinOrLoss.WIN.name() : WinOrLoss.LOSE.name();
@@ -42,10 +42,13 @@ public class Match {
     }
 
     public String play(String me, String other){
+        isStillPlaying();
         isRightShape(me);
         isRightShape(other);
+
         String result = judge(me, other);
         update(result);
+        status();
         return result;
     }
 
@@ -68,7 +71,12 @@ public class Match {
     }
 
 
-
+    public String status(){
+        if(this.wins>=3) this.state = State.WIN.name();
+        else if(this.losses>=3) this.state = State.LOSE.name();
+        else this.state = State.PLAYING.name();
+        return this.state;
+    }
 
     ///규칙
     private void isRightShape(String hand){
@@ -76,5 +84,13 @@ public class Match {
             throw new IllegalArgumentException();
         }
     }
+
+    private void isStillPlaying(){
+        if(!State.PLAYING.name().equals(this.state)) {
+            throw new IllegalStateException();
+        }
+    }
+
+
 
 }

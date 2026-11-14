@@ -48,8 +48,7 @@ public class RockPaperScissorsController implements RockPaperScissorsApi {
     ///4단계 : 3선승 경기
     @Override
     public String status() {
-        throw new IllegalArgumentException();
-//        return rockPaperScissorsService.status();
+        return match.status();
     }
 
 }
