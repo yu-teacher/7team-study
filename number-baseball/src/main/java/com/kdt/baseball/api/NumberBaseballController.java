@@ -2,14 +2,23 @@ package com.kdt.baseball.api;
 
 public class NumberBaseballController implements NumberBaseballApi {
 
+    private final NumberBaseballService  numberBaseballService  = new NumberBaseballService();
+    ///1단계 - 숫자규칙
     @Override
     public void start(String answer) {
-        throw new UnsupportedOperationException("1단계");
+        if(!numberBaseballService.isRightAnswer(answer)){
+            throw new IllegalArgumentException();
+        }
+        numberBaseballService.setAnswer(answer);
     }
 
+    ///2단계 판정
     @Override
     public String guess(String number) {
-        throw new UnsupportedOperationException("2단계");
+        if(!numberBaseballService.isRightAnswer(number)){
+            throw new IllegalArgumentException();
+        }
+        return numberBaseballService.guess(number);
     }
 
     @Override
