@@ -1,44 +1,55 @@
 package com.kdt.rps.api;
 
+import com.kdt.rps.Hand;
+import com.kdt.rps.Match;
+
 public class RockPaperScissorsController implements RockPaperScissorsApi {
+
+    private Match match;
+
+    public RockPaperScissorsController() {
+        this.match = new Match();
+    }
 
     @Override
     public String winsAgainst(String hand) {
-        throw new UnsupportedOperationException("1단계");
+        return Hand.from(hand).winsAgainst().name();
     }
 
     @Override
     public String judge(String me, String other) {
-        throw new UnsupportedOperationException("2단계");
+        return Hand.from(me).judge(Hand.from(other)).name();
     }
 
     @Override
     public void start() {
-        throw new UnsupportedOperationException("3단계");
+        this.match = new Match();
     }
 
     @Override
     public String play(String me, String other) {
-        throw new UnsupportedOperationException("3단계");
+        Hand myHand = Hand.from(me);
+        Hand otherHand = Hand.from(other);
+        return match.play(myHand, otherHand).name();
     }
 
     @Override
     public int wins() {
-        throw new UnsupportedOperationException("3단계");
+        return match.getWins();
     }
 
     @Override
     public int losses() {
-        throw new UnsupportedOperationException("3단계");
+        return match.getLosses();
     }
 
     @Override
     public int draws() {
-        throw new UnsupportedOperationException("3단계");
+        return match.getDraws();
     }
 
     @Override
     public String status() {
-        throw new UnsupportedOperationException("4단계");
+        return match.status().name();
     }
 }
