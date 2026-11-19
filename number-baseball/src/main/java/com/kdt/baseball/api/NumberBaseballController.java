@@ -1,29 +1,46 @@
 package com.kdt.baseball.api;
 
+import com.kdt.baseball.AnswerGenerator;
+import com.kdt.baseball.BallNumber;
+import com.kdt.baseball.Game;
+import com.kdt.baseball.RandomAnswerGenerator;
+
 public class NumberBaseballController implements NumberBaseballApi {
+
+    private final AnswerGenerator answerGenerator = new RandomAnswerGenerator();
+    private Game game;
 
     @Override
     public void start(String answer) {
-        throw new UnsupportedOperationException("1단계");
+        this.game = new Game(BallNumber.of(answer));
     }
 
     @Override
     public String guess(String number) {
-        throw new UnsupportedOperationException("2단계");
+        validateStarted();
+        return game.guess(BallNumber.of(number)).toString();
     }
 
     @Override
     public int attempts() {
-        throw new UnsupportedOperationException("3단계");
+        validateStarted();
+        return game.getAttempts();
     }
 
     @Override
     public String status() {
-        throw new UnsupportedOperationException("3단계");
+        validateStarted();
+        return game.status().name();
     }
 
     @Override
     public String randomAnswer() {
-        throw new UnsupportedOperationException("4단계");
+        return answerGenerator.generate().toString();
+    }
+
+    private void validateStarted() {
+        if (game == null) {
+            throw new IllegalStateException("게임을 먼저 시작해 주세요.");
+        }
     }
 }
